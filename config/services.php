@@ -44,4 +44,8 @@ return [
         ],
     ],
 
+    'geixue' => [
+        'key' => env('GEIXUE_API_KEY'),
+    ],
+
 ];

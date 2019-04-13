@@ -47,6 +47,46 @@ class PaymentController extends Controller
         return ['paid' => false];
     }
 
+    public function mike()
+    {
+        $payment = Payment::create([
+            'trade_no' => time().rand(9999,100000),
+            'subject' => '给学网 Mike 订单',
+            'amount' => 300 // 100
+        ]);
+
+        return view('mike',compact('payment'));
+    }
+
+    public function mikecrm()
+    {
+        // notify
+        $signature = request()->header('X-GEIXUE-SIGNATURE');
+
+        if ($signature === md5(config('services.geixue.key'))) {
+
+            $data = request()->all();
+
+            $payment = Payment::where('trade_no',$data['trade_no'])->first();
+
+            if (is_null($payment)) {
+                exit();
+            }
+
+            if ($payment->paid()) {
+                exit();
+            }
+
+            $payment->is_paid = 'T';
+            $payment->paid_at = now();
+            $payment->save();
+
+            return 'success';
+        }
+
+        return 'failed';
+    }
+
     public function notify()
     {
         $data = Payjs::notify();
@@ -65,7 +105,7 @@ class PaymentController extends Controller
             $payment->is_paid = 'T';
             $payment->paid_at = now();
             $payment->save();
-            
+
             return 'success';
         }
     }
