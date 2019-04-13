@@ -11,7 +11,7 @@
             </h2>
             <button @click="payment" class="button is-large">去支付 3.00 元</button>
         </div>
-        
+
     </div>
 </template>
 
