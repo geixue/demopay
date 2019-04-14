@@ -53,3 +53,27 @@
     box-shadow: inset 0 0 0 50px #38c172
   }
 }
+
+
+
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em;
+}
+
+.bd-footer-link {
+  margin-top: .5rem;
+}
+
+.bd-footer-links a {
+  color: currentColor;
+}
+
+.bd-footer-link-title {
+  color: #363636;
+  font-size: 1.25rem;
+  font-weight: 600;
+}

@@ -32,6 +32,7 @@
         </div>
     </section>
 </div>
+@include('foot')
 </body>
 
 <script src="/js/app.js"></script>
