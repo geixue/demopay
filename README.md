@@ -34,3 +34,15 @@ PAYJS_KEY=
 GEIXUE_API_KEY=
 
 ```
+
+**第三步，分别执行下面三个命令**
+
+```shell
+yarn 
+// 或者 npm install
+
+composer install
+
+php artisan migrate
+
+```
