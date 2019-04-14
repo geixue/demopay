@@ -1,7 +1,7 @@
 <template>
     <div style="margin-top: 2em;">
         <form @submit.prevent="payment" @keydown="form.onKeydown($event)">
-            <button class="button is-success is-large is-fullwidth" type="submit">去支付 2.00 元</button>
+            <button :class="{'is-loading':form.busy}" class="button is-success is-large is-fullwidth" type="submit">去支付 2.00 元</button>
         </form>
 
         <div class="modal" :class="{'is-active': opened}">
@@ -37,14 +37,15 @@
 
 <script>
     import axios from 'axios'
+    import {Form, HasError, AlertError} from 'vform'
 
     export default {
-        mounted() {
-
-        },
         data() {
             timeId: null
             return {
+                form:new Form({
+                    channel:'WECHAT'
+                }),
                 url: '',
                 opened: false,
                 paid: false
