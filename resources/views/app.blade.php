@@ -47,7 +47,7 @@
             display: none;
         }
     </style>
-    
+
 </head>
 <body>
 <div id="app">
