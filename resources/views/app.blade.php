@@ -19,6 +19,35 @@
 
     <link href="/css/app.css" rel="stylesheet">
     <meta name="csrf-token" content="{{csrf_token()}}">
+
+    <style>
+        [v-cloak] .v-cloak--block {
+            display: block;
+        }
+
+        [v-cloak] .v-cloak--inline {
+            display: inline;
+        }
+
+        [v-cloak] .v-cloak--inlineBlock {
+            display: inline-block;
+        }
+
+        [v-cloak] .v-cloak--hidden {
+            display: none;
+        }
+
+        [v-cloak] .v-cloak--invisible {
+            visibility: hidden;
+        }
+
+        .v-cloak--block,
+        .v-cloak--inline,
+        .v-cloak--inlineBlock {
+            display: none;
+        }
+    </style>
+    
 </head>
 <body>
 <div id="app">
