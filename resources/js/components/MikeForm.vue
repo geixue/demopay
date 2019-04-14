@@ -1,15 +1,21 @@
 <template>
-    <div class="container">
+    <div>
 
         <div v-if="paid" class="section">
-            <h2 class="title is-4">支付成功啦！</h2>
+            <div class="has-text-centered">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p><strong>订单支付成功</strong></p>
+            </div>
         </div>
 
         <div v-else class="section">
             <h2 class="title is-6">
-              订单号：  <code>{{trade_no}}</code>
+              订单号：  <code style="font-size: 1.5em;">{{trade_no}}</code>
             </h2>
-            <button @click="payment" class="button is-large">去支付 3.00 元</button>
+            <button @click="payment" class="button is-large is-info is-fullwidth">去支付 3.00 元</button>
         </div>
 
     </div>

@@ -13,3 +13,5 @@ Route::post('/notify/wechat','PaymentController@notify');
 
 Route::post('/notify/mikecrm','PaymentController@mikecrm');
 Route::get('/mike','PaymentController@mike');
+
+Route::view('/payjs','payjs');

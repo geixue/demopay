@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div style="margin-top: 2em;">
         <form @submit.prevent="payment" @keydown="form.onKeydown($event)">
-            <button class="button is-success" type="submit">去支付</button>
+            <button class="button is-success is-large is-fullwidth" type="submit">去支付 2.00 元</button>
         </form>
 
         <div class="modal" :class="{'is-active': opened}">
@@ -14,7 +14,13 @@
                 <section class="modal-card-body">
 
                     <div v-if="paid">
-                        <p><strong>订单支付成功</strong></p>
+                        <div class="has-text-centered">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                            <p><strong>订单支付成功</strong></p>
+                        </div>
                     </div>
 
                     <div v-else>
