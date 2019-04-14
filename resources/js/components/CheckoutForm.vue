@@ -1,7 +1,15 @@
 <template>
     <div style="margin-top: 2em;">
-        <form @submit.prevent="payment" @keydown="form.onKeydown($event)">
-            <button :class="{'is-loading':form.busy}" class="button is-success is-large is-fullwidth" type="submit">去支付 2.00 元</button>
+        <form @submit.prevent="payment"
+              @keydown="form.onKeydown($event)">
+            <input type="hidden"
+                   name="channel"
+                   v-model="form.channel">
+            <button
+                class="button is-success is-large is-fullwidth"
+                :class="{'is-loading':form.busy}"
+                type="submit">去支付 2.00 元
+            </button>
         </form>
 
         <div class="modal" :class="{'is-active': opened}">
@@ -43,8 +51,8 @@
         data() {
             timeId: null
             return {
-                form:new Form({
-                    channel:'WECHAT'
+                form: new Form({
+                    channel: 'WECHAT'
                 }),
                 url: '',
                 opened: false,
@@ -52,9 +60,9 @@
             }
         },
         methods: {
-            checkPayment(trade_no){
-                axios.post('/payment/check',{trade_no: trade_no}).then(response => {
-                   this.paid = response.data.paid
+            checkPayment(trade_no) {
+                axios.post('/payment/check', {trade_no: trade_no}).then(response => {
+                    this.paid = response.data.paid
                 })
             },
             intervalPayment(trade_no) {
@@ -65,12 +73,11 @@
                     this.checkPayment(trade_no)
                 }, 3000)
             },
-            payment() {
-                axios.post('/payment').then(response => {
-                    this.url = response.data.url
-                    this.intervalPayment(response.data.trade_no)
-                    this.opened = true
-                })
+            async payment() {
+                const {data} = await this.form.post('/payment')
+                this.url = data.url
+                this.intervalPayment(data.trade_no)
+                this.opened = true
             },
             closeModal() {
                 this.opened = false
