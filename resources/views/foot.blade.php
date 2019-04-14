@@ -21,7 +21,7 @@
 
 
                     <p class="bd-footer-link">
-                        <a href="/surf" target="_blank">
+                        <a href="https://pay.geixue.com/surf" target="_blank">
                             科学上网服务
                         </a>
                     </p>
