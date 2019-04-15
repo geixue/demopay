@@ -80,24 +80,9 @@ class PaymentController extends Controller
         $signature = request()->header('X-GEIXUE-SIGNATURE');
 
         if ($signature === md5(config('services.geixue.key'))) {
-
             $data = request()->all();
-
-            $payment = Payment::where('trade_no',$data['trade_no'])->first();
-
-            if (is_null($payment)) {
-                exit();
-            }
-
-            if ($payment->paid()) {
-                exit();
-            }
-
-            $payment->is_paid = 'T';
-            $payment->paid_at = now();
-            $payment->save();
-
-            return 'success';
+            $this->processPayment($data['trade_no']);
+            return $this->successResponse();
         }
 
         return 'failed';
@@ -109,8 +94,16 @@ class PaymentController extends Controller
     public function notify()
     {
         $data = Payjs::notify();
+        $this->processPayment($data['out_trade_no']);
+        return $this->successResponse();
+    }
 
-        $payment = Payment::where('trade_no',$data['out_trade_no'])->first();
+    /**
+     * @param $tradeNo
+     */
+    protected function processPayment($tradeNo)
+    {
+        $payment = Payment::where('trade_no',$tradeNo)->first();
 
         if (is_null($payment)) {
             exit();
@@ -120,12 +113,24 @@ class PaymentController extends Controller
             exit();
         }
 
-        if ($data['return_code'] == 1) {
-            $payment->is_paid = 'T';
-            $payment->paid_at = now();
-            $payment->save();
+        $this->markAsPaid($payment);
+    }
 
-            return 'success';
-        }
+    /**
+     * @param $payment
+     */
+    protected function markAsPaid($payment)
+    {
+        $payment->is_paid = 'T';
+        $payment->paid_at = now();
+        $payment->save();
+    }
+
+    /**
+     * @return string
+     */
+    protected function successResponse()
+    {
+        return 'success';
     }
 }
